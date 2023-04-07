@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bui/bui.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -57,18 +56,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  IndexListController controller = IndexListController();
+  int counter = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -87,19 +76,46 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
+        actions: [
+          IconButton(
+              onPressed: () {
+                if (counter + 10 < 1000000) {
+                  controller.scrollTo(
+                      index: counter += 10,
+                      duration: const Duration(seconds: 2));
+                }
+              },
+              icon: const Icon(Icons.navigate_next_rounded)),
+          IconButton(
+              onPressed: () {
+                if (counter - 10 > 0) {
+                  controller.scrollTo(
+                      index: counter -= 10,
+                      duration: const Duration(seconds: 2));
+                }
+              },
+              icon: const Icon(Icons.navigate_next_rounded)),
+        ],
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: ListView.builder(itemBuilder: (context, index) => ListTile(title: Text('${index + 1}'),),
-          physics: const ChatScrollPhysics(),
-        )
+        child: IndexListView.chat(
+          controller: controller,
+          itemBuilder: (context, index) => Container(
+              height: 100,
+              color: Colors.blue,
+              child: ListTile(title: Text('$index'))),
+          itemCount: 10000,
+          onChangeMaxIndex: (value) => print("max $value"),
+          onChangeMinIndex: (value) => print("min $value"),
+        ),
+        // child: ListView.builder(
+        //   prototypeItem: const ListTile(title: Text('Loading'),),
+        //     itemBuilder: (context, index) => ListTile(title: Text('$index')),
+        //     itemCount: 100000,
+        // ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
