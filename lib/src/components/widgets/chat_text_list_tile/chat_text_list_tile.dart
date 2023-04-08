@@ -33,22 +33,32 @@ class ChatTextListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: padding,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment:
-            isFromMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-        children: [
-          if (senderName != null) senderName!,
-          Padding(
-            padding: textPadding ??
-                const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
-            child: Text(
-              text,
-              style: textStyle,
+      // color: Colors.red,
+      width: double.infinity,
+      alignment: isFromMe ? Alignment.centerRight : Alignment.centerLeft,
+      child: Card(
+        color: isFromMe
+            ? Theme.of(context).colorScheme.primary
+            : Theme.of(context).colorScheme.onPrimary,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment:
+              isFromMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+          children: [
+            if (senderName != null) senderName!,
+            Padding(
+              padding: textPadding ??
+                  const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
+              child: Text(
+                text,
+                style: textStyle ?? TextStyle(
+                  color: isFromMe
+                      ? Theme.of(context).colorScheme.onPrimary
+                      : Theme.of(context).colorScheme.primary
+                ),
+              ),
             ),
-          ),
-          IntrinsicWidth(
-            child: Padding(
+            Padding(
               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -61,8 +71,8 @@ class ChatTextListTile extends StatelessWidget {
                               fontSize: 10,
                               fontWeight: FontWeight.bold,
                               color: isFromMe
-                                  ? Theme.of(context).colorScheme.primary
-                                  : Theme.of(context).colorScheme.secondary),
+                                  ? Theme.of(context).colorScheme.onPrimary
+                                  : Theme.of(context).colorScheme.primary),
                     ),
                   const SizedBox(
                     width: 4,
@@ -90,9 +100,9 @@ class ChatTextListTile extends StatelessWidget {
                     ),
                 ],
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

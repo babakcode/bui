@@ -102,10 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // in the middle of the parent.
         child: IndexListView.chat(
           controller: controller,
-          itemBuilder: (context, index) => Container(
-              height: 100,
-              color: Colors.blue,
-              child: ListTile(title: Text('$index'))),
+          itemBuilder: (context, index) => ChatTextListTile(text: "$index", isFromMe: index.isEven),
           itemCount: 12,
           reverse: true,
           physics: const ChatScrollPhysics(),
