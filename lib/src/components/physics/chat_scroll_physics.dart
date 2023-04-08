@@ -28,6 +28,10 @@ class ChatScrollPhysics extends ScrollPhysics {
 
     final diff = newPosition.maxScrollExtent - oldPosition.maxScrollExtent;
 
+    if(oldPosition.pixels > 0){
+      return position + diff;
+    }
+
     if (oldPosition.pixels >= oldPosition.maxScrollExtent &&
         diff > 0 &&
         shouldRetain) {

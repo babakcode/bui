@@ -86,7 +86,6 @@ class ChatTextListTile extends StatelessWidget {
                           default:
                             return const Icon(Icons.check_rounded);
                         }
-                        return const SizedBox();
                       },
                     ),
                 ],
