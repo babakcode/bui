@@ -41,7 +41,7 @@ class ChatIndexListView extends StatefulWidget {
     this.minCacheExtent,
     this.onChangeMinIndex,
     this.onChangeMaxIndex,
-    this.physics,
+    this.physics = const ChatScrollPhysics(),
   }) : super(key: key);
 
   @override
