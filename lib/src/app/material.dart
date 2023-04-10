@@ -760,13 +760,6 @@ class BUIMaterialApp extends StatefulWidget {
 /// If the scroll direction is [Axis.horizontal] scroll views are less
 /// discoverable, so consider adding a Scrollbar in these cases, either directly
 /// or through the [buildScrollbar] method.
-///
-/// [BUIMaterialScrollBehavior.androidOverscrollIndicator] specifies the
-/// overscroll indicator that is used on [TargetPlatform.android]. When null,
-/// [ThemeData.androidOverscrollIndicator] is used. If also null, the default
-/// overscroll indicator is the [GlowingOverscrollIndicator]. These properties
-/// are deprecated. In order to use the [StretchingOverscrollIndicator], use
-/// the [ThemeData.useMaterial3] flag, or override
 /// [ScrollBehavior.buildOverscrollIndicator].
 ///
 /// See also:
@@ -776,11 +769,6 @@ class BUIMaterialScrollBehavior extends ScrollBehavior {
   /// Creates a MaterialScrollBehavior that decorates [Scrollable]s with
   /// [GlowingOverscrollIndicator]s and [Scrollbar]s based on the current
   /// platform and provided [ScrollableDetails].
-  ///
-  /// [BUIMaterialScrollBehavior.androidOverscrollIndicator] specifies the
-  /// overscroll indicator that is used on [TargetPlatform.android]. When null,
-  /// [ThemeData.androidOverscrollIndicator] is used. If also null, the default
-  /// overscroll indicator is the [GlowingOverscrollIndicator].
   const BUIMaterialScrollBehavior({
     @Deprecated(
         'Use ThemeData.useMaterial3 or override ScrollBehavior.buildOverscrollIndicator. '
@@ -827,9 +815,7 @@ class BUIMaterialScrollBehavior extends ScrollBehavior {
     if (Theme.of(context).useMaterial3) {
       indicator = AndroidOverscrollIndicator.stretch;
     } else {
-      indicator = _androidOverscrollIndicator
-          ?? Theme.of(context).androidOverscrollIndicator
-          ?? androidOverscrollIndicator;
+      indicator = _androidOverscrollIndicator!;
     }
     switch (getPlatform(context)) {
       case TargetPlatform.iOS:
@@ -842,7 +828,7 @@ class BUIMaterialScrollBehavior extends ScrollBehavior {
           case AndroidOverscrollIndicator.stretch:
             return StretchingOverscrollIndicator(
               axisDirection: details.direction,
-              clipBehavior: details.clipBehavior ?? Clip.hardEdge,
+              clipBehavior: Clip.hardEdge,
               child: child,
             );
           case AndroidOverscrollIndicator.glow:

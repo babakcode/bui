@@ -1,7 +1,7 @@
 name: bui
 description: A new Flutter project.
-version: 0.0.1-dev-preRelease-01
-homepage:
+version: 0.0.1-dev-01
+homepage: "https://github.com/babakcode/bui"
 
 environment:
   sdk: '>=3.0.0-339.0.dev <4.0.0'

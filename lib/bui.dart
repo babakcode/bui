@@ -2,6 +2,9 @@ library bui;
 
 export 'src/app/material.dart';
 export 'src/app/app.dart';
+/// enum
+// chat
+export 'src/components/enum/chat/chat_send_status.dart';
 /// components
 // physics
 export 'src/components/physics/chat_scroll_physics.dart';
@@ -13,7 +16,3 @@ export 'src/components/widgets/index_list_view/index_list_controller.dart';
 
 export 'src/components/widgets/chat_text_list_tile/chat_text_list_tile.dart';
 
-
-/// enum
-// chat
-export 'src/components/enum/chat/chat_send_status.dart';
