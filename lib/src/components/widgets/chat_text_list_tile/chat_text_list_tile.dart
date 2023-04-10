@@ -1,7 +1,6 @@
+import 'package:bui/bui.dart';
 import 'package:bui/src/model/chat/chat_send_status_widgets.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../bui.dart';
 
 class ChatTextListTile extends StatelessWidget {
   final bool isFromMe;
