@@ -1,39 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
 import 'package:flutter/services.dart';
-
-
-/// [BUIMaterialApp] uses this [TextStyle] as its [DefaultTextStyle] to encourage
-/// developers to be intentional about their [DefaultTextStyle].
-///
-/// In Material Design, most [Text] widgets are contained in [Material] widgets,
-/// which sets a specific [DefaultTextStyle]. If you're seeing text that uses
-/// this text style, consider putting your text in a [Material] widget (or
-/// another widget that sets a [DefaultTextStyle]).
-const TextStyle _errorTextStyle = TextStyle(
-  color: Color(0xD0FF0000),
-  fontFamily: 'monospace',
-  fontSize: 48.0,
-  fontWeight: FontWeight.w900,
-  decoration: TextDecoration.underline,
-  decorationColor: Color(0xFFFFFF00),
-  decorationStyle: TextDecorationStyle.double,
-  debugLabel: 'fallback style; consider putting your text in a Material',
-);
-
-/// Describes which theme will be used by [BUIMaterialApp].
-enum ThemeMode {
-  /// Use either the light or dark theme based on what the user has selected in
-  /// the system settings.
-  system,
-
-  /// Always use the light mode regardless of system preference.
-  light,
-
-  /// Always use the dark mode (if available) regardless of system preference.
-  dark,
-}
 
 /// An application that uses Material Design.
 ///
@@ -173,7 +139,7 @@ enum ThemeMode {
 ///  * [WidgetsApp], which defines the basic app elements but does not depend on the material library.
 ///  * The Flutter Internationalization Tutorial,
 ///    <https://flutter.dev/tutorials/internationalization/>.
-class BUIMaterialApp extends StatefulWidget {
+class BUIMaterialApp extends StatelessWidget {
   /// Creates a MaterialApp.
   ///
   /// At least one of [home], [routes], [onGenerateRoute], or [builder] must be
@@ -195,7 +161,8 @@ class BUIMaterialApp extends StatefulWidget {
     this.onGenerateRoute,
     this.onGenerateInitialRoutes,
     this.onUnknownRoute,
-    List<NavigatorObserver> this.navigatorObservers = const <NavigatorObserver>[],
+    List<NavigatorObserver> this.navigatorObservers =
+        const <NavigatorObserver>[],
     this.builder,
     this.title = '',
     this.onGenerateTitle,
@@ -217,18 +184,12 @@ class BUIMaterialApp extends StatefulWidget {
     this.checkerboardRasterCacheImages = false,
     this.checkerboardOffscreenLayers = false,
     this.showSemanticsDebugger = false,
-    this.debugShowCheckedModeBanner = true,
+    this.debugShowCheckedModeBanner = false,
     this.shortcuts,
     this.actions,
     this.restorationScopeId,
     this.scrollBehavior,
-    @Deprecated(
-        'Remove this parameter as it is now ignored. '
-            'MaterialApp never introduces its own MediaQuery; the View widget takes care of that. '
-            'This feature was deprecated after v3.7.0-29.0.pre.'
-    )
-    this.useInheritedMediaQuery = false,
-  }) : routeInformationProvider = null,
+  })  : routeInformationProvider = null,
         routeInformationParser = null,
         routerDelegate = null,
         backButtonDispatcher = null,
@@ -266,18 +227,12 @@ class BUIMaterialApp extends StatefulWidget {
     this.checkerboardRasterCacheImages = false,
     this.checkerboardOffscreenLayers = false,
     this.showSemanticsDebugger = false,
-    this.debugShowCheckedModeBanner = true,
+    this.debugShowCheckedModeBanner = false,
     this.shortcuts,
     this.actions,
     this.restorationScopeId,
     this.scrollBehavior,
-    @Deprecated(
-        'Remove this parameter as it is now ignored. '
-            'MaterialApp never introduces its own MediaQuery; the View widget takes care of that. '
-            'This feature was deprecated after v3.7.0-29.0.pre.'
-    )
-    this.useInheritedMediaQuery = false,
-  }) : assert(routerDelegate != null || routerConfig != null),
+  })  : assert(routerDelegate != null || routerConfig != null),
         navigatorObservers = null,
         navigatorKey = null,
         onGenerateRoute = null,
@@ -723,218 +678,11 @@ class BUIMaterialApp extends StatefulWidget {
   ///  * <https://material.io/design/layout/spacing-methods.html>
   final bool debugShowMaterialGrid;
 
-  /// {@macro flutter.widgets.widgetsApp.useInheritedMediaQuery}
-  @Deprecated(
-      'This setting is now ignored. '
-          'MaterialApp never introduces its own MediaQuery; the View widget takes care of that. '
-          'This feature was deprecated after v3.7.0-29.0.pre.'
-  )
-  final bool useInheritedMediaQuery;
-
   @override
-  State<BUIMaterialApp> createState() => _BUIMaterialAppState();
+  Widget build(BuildContext context) {
 
-  /// The [HeroController] used for Material page transitions.
-  ///
-  /// Used by the [BUIMaterialApp].
-  static HeroController createMaterialHeroController() {
-    return HeroController(
-      createRectTween: (Rect? begin, Rect? end) {
-        return MaterialRectArcTween(begin: begin, end: end);
-      },
-    );
-  }
-}
-
-/// Describes how [Scrollable] widgets behave for [BUIMaterialApp]s.
-///
-/// {@macro flutter.widgets.scrollBehavior}
-///
-/// Setting a [BUIMaterialScrollBehavior] will apply a
-/// [GlowingOverscrollIndicator] to [Scrollable] descendants when executing on
-/// [TargetPlatform.android] and [TargetPlatform.fuchsia].
-///
-/// When using the desktop platform, if the [Scrollable] widget scrolls in the
-/// [Axis.vertical], a [Scrollbar] is applied.
-///
-/// If the scroll direction is [Axis.horizontal] scroll views are less
-/// discoverable, so consider adding a Scrollbar in these cases, either directly
-/// or through the [buildScrollbar] method.
-/// [ScrollBehavior.buildOverscrollIndicator].
-///
-/// See also:
-///
-///  * [ScrollBehavior], the default scrolling behavior extended by this class.
-class BUIMaterialScrollBehavior extends ScrollBehavior {
-  /// Creates a MaterialScrollBehavior that decorates [Scrollable]s with
-  /// [GlowingOverscrollIndicator]s and [Scrollbar]s based on the current
-  /// platform and provided [ScrollableDetails].
-  const BUIMaterialScrollBehavior({
-    @Deprecated(
-        'Use ThemeData.useMaterial3 or override ScrollBehavior.buildOverscrollIndicator. '
-            'This feature was deprecated after v2.13.0-0.0.pre.'
-    )
-    super.androidOverscrollIndicator,
-  }) : _androidOverscrollIndicator = androidOverscrollIndicator;
-
-  final AndroidOverscrollIndicator? _androidOverscrollIndicator;
-
-  @override
-  TargetPlatform getPlatform(BuildContext context) => Theme.of(context).platform;
-
-  @override
-  Widget buildScrollbar(BuildContext context, Widget child, ScrollableDetails details) {
-    // When modifying this function, consider modifying the implementation in
-    // the base class ScrollBehavior as well.
-    switch (axisDirectionToAxis(details.direction)) {
-      case Axis.horizontal:
-        return child;
-      case Axis.vertical:
-        switch (getPlatform(context)) {
-          case TargetPlatform.linux:
-          case TargetPlatform.macOS:
-          case TargetPlatform.windows:
-            assert(details.controller != null);
-            return Scrollbar(
-              controller: details.controller,
-              child: child,
-            );
-          case TargetPlatform.android:
-          case TargetPlatform.fuchsia:
-          case TargetPlatform.iOS:
-            return child;
-        }
-    }
-  }
-
-  @override
-  Widget buildOverscrollIndicator(BuildContext context, Widget child, ScrollableDetails details) {
-    // When modifying this function, consider modifying the implementation in
-    // the base class ScrollBehavior as well.
-    late final AndroidOverscrollIndicator indicator;
-    if (Theme.of(context).useMaterial3) {
-      indicator = AndroidOverscrollIndicator.stretch;
-    } else {
-      indicator = _androidOverscrollIndicator!;
-    }
-    switch (getPlatform(context)) {
-      case TargetPlatform.iOS:
-      case TargetPlatform.linux:
-      case TargetPlatform.macOS:
-      case TargetPlatform.windows:
-        return child;
-      case TargetPlatform.android:
-        switch (indicator) {
-          case AndroidOverscrollIndicator.stretch:
-            return StretchingOverscrollIndicator(
-              axisDirection: details.direction,
-              clipBehavior: Clip.hardEdge,
-              child: child,
-            );
-          case AndroidOverscrollIndicator.glow:
-            continue glow;
-        }
-      glow:
-      case TargetPlatform.fuchsia:
-        return GlowingOverscrollIndicator(
-          axisDirection: details.direction,
-          color: Theme.of(context).colorScheme.secondary,
-          child: child,
-        );
-    }
-  }
-}
-
-class _BUIMaterialAppState extends State<BUIMaterialApp> {
-  late HeroController _heroController;
-
-  bool get _usesRouter => widget.routerDelegate != null || widget.routerConfig != null;
-
-  @override
-  void initState() {
-    super.initState();
-    _heroController = BUIMaterialApp.createMaterialHeroController();
-  }
-
-  // Combine the Localizations for Material with the ones contributed
-  // by the localizationsDelegates parameter, if any. Only the first delegate
-  // of a particular LocalizationsDelegate.type is loaded so the
-  // localizationsDelegate parameter can be used to override
-  // _MaterialLocalizationsDelegate.
-  Iterable<LocalizationsDelegate<dynamic>> get _localizationsDelegates {
-    return <LocalizationsDelegate<dynamic>>[
-      if (widget.localizationsDelegates != null)
-        ...widget.localizationsDelegates!,
-      DefaultMaterialLocalizations.delegate,
-      DefaultCupertinoLocalizations.delegate,
-    ];
-  }
-
-  Widget _inspectorSelectButtonBuilder(BuildContext context, VoidCallback onPressed) {
-    return FloatingActionButton(
-      onPressed: onPressed,
-      mini: true,
-      child: const Icon(Icons.search),
-    );
-  }
-
-  ThemeData _themeBuilder(BuildContext context) {
-    ThemeData? theme;
-    // Resolve which theme to use based on brightness and high contrast.
-    final ThemeMode mode = widget.themeMode ?? ThemeMode.system;
-    final Brightness platformBrightness = MediaQuery.platformBrightnessOf(context);
-    final bool useDarkTheme = mode == ThemeMode.dark
-        || (mode == ThemeMode.system && platformBrightness == ui.Brightness.dark);
-    final bool highContrast = MediaQuery.highContrastOf(context);
-    if (useDarkTheme && highContrast && widget.highContrastDarkTheme != null) {
-      theme = widget.highContrastDarkTheme;
-    } else if (useDarkTheme && widget.darkTheme != null) {
-      theme = widget.darkTheme;
-    } else if (highContrast && widget.highContrastTheme != null) {
-      theme = widget.highContrastTheme;
-    }
-    theme ??= widget.theme ?? ThemeData.light();
-    return theme;
-  }
-
-  Widget _materialBuilder(BuildContext context, Widget? child) {
-    final ThemeData theme = _themeBuilder(context);
-    final Color effectiveSelectionColor = theme.textSelectionTheme.selectionColor ?? theme.colorScheme.primary.withOpacity(0.40);
-    final Color effectiveCursorColor = theme.textSelectionTheme.cursorColor ?? theme.colorScheme.primary;
-
-    return ScaffoldMessenger(
-      key: widget.scaffoldMessengerKey,
-      child: DefaultSelectionStyle(
-        selectionColor: effectiveSelectionColor,
-        cursorColor: effectiveCursorColor,
-        child: AnimatedTheme(
-          data: theme,
-          duration: widget.themeAnimationDuration,
-          curve: widget.themeAnimationCurve,
-          child: widget.builder != null
-              ? Builder(
-            builder: (BuildContext context) {
-              // Why are we surrounding a builder with a builder?
-              //
-              // The widget.builder may contain code that invokes
-              // Theme.of(), which should return the theme we selected
-              // above in AnimatedTheme. However, if we invoke
-              // widget.builder() directly as the child of AnimatedTheme
-              // then there is no Context separating them, and the
-              // widget.builder() will not find the theme. Therefore, we
-              // surround widget.builder with yet another builder so that
-              // a context separates them and Theme.of() correctly
-              // resolves to the theme we passed to AnimatedTheme.
-              return widget.builder!(context, child);
-            },
-          )
-              : child ?? const SizedBox.shrink(),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildWidgetApp(BuildContext context) {
+    bool usesRouter =
+        routerDelegate != null || routerConfig != null;
     // The color property is always pulled from the light theme, even if dark
     // mode is activated. This was done to simplify the technical details
     // of switching themes and it was deemed acceptable because this color
@@ -942,103 +690,81 @@ class _BUIMaterialAppState extends State<BUIMaterialApp> {
     // Android's switcher UI.
     //
     // blue is the primary color of the default theme.
-    final Color materialColor = widget.color ?? widget.theme?.primaryColor ?? Colors.blue;
-    if (_usesRouter) {
-      return WidgetsApp.router(
-        key: GlobalObjectKey(this),
-        routeInformationProvider: widget.routeInformationProvider,
-        routeInformationParser: widget.routeInformationParser,
-        routerDelegate: widget.routerDelegate,
-        routerConfig: widget.routerConfig,
-        backButtonDispatcher: widget.backButtonDispatcher,
-        builder: _materialBuilder,
-        title: widget.title,
-        onGenerateTitle: widget.onGenerateTitle,
-        textStyle: _errorTextStyle,
-        color: materialColor,
-        locale: widget.locale,
-        localizationsDelegates: _localizationsDelegates,
-        localeResolutionCallback: widget.localeResolutionCallback,
-        localeListResolutionCallback: widget.localeListResolutionCallback,
-        supportedLocales: widget.supportedLocales,
-        showPerformanceOverlay: widget.showPerformanceOverlay,
-        checkerboardRasterCacheImages: widget.checkerboardRasterCacheImages,
-        checkerboardOffscreenLayers: widget.checkerboardOffscreenLayers,
-        showSemanticsDebugger: widget.showSemanticsDebugger,
-        debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
-        inspectorSelectButtonBuilder: _inspectorSelectButtonBuilder,
-        shortcuts: widget.shortcuts,
-        actions: widget.actions,
-        restorationScopeId: widget.restorationScopeId,
+    if (usesRouter) {
+      return MaterialApp.router(
+        routeInformationProvider: routeInformationProvider,
+        routeInformationParser: routeInformationParser,
+        routerDelegate: routerDelegate,
+        routerConfig: routerConfig,
+        backButtonDispatcher: backButtonDispatcher,
+        builder: builder,
+        title: title,
+        onGenerateTitle: onGenerateTitle,
+        key: key,
+        color: color ?? theme?.primaryColor ?? Colors.blue,
+        locale: locale,
+        themeMode: themeMode,
+        darkTheme: darkTheme,
+        theme: theme,
+        debugShowMaterialGrid: debugShowMaterialGrid,
+        highContrastDarkTheme: highContrastDarkTheme,
+        highContrastTheme: highContrastTheme,
+        scaffoldMessengerKey: scaffoldMessengerKey,
+        scrollBehavior: scrollBehavior,
+        themeAnimationCurve: themeAnimationCurve,
+        themeAnimationDuration: themeAnimationDuration,
+        localizationsDelegates: localizationsDelegates,
+        localeResolutionCallback: localeResolutionCallback,
+        localeListResolutionCallback: localeListResolutionCallback,
+        supportedLocales: supportedLocales,
+        showPerformanceOverlay: showPerformanceOverlay,
+        checkerboardRasterCacheImages: checkerboardRasterCacheImages,
+        checkerboardOffscreenLayers: checkerboardOffscreenLayers,
+        showSemanticsDebugger: showSemanticsDebugger,
+        debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+        shortcuts: shortcuts,
+        actions: actions,
+        restorationScopeId: restorationScopeId,
       );
     }
 
-    return WidgetsApp(
-      key: GlobalObjectKey(this),
-      navigatorKey: widget.navigatorKey,
-      navigatorObservers: widget.navigatorObservers!,
-      pageRouteBuilder: <T>(RouteSettings settings, WidgetBuilder builder) {
-        return MaterialPageRoute<T>(settings: settings, builder: builder);
-      },
-      home: widget.home,
-      routes: widget.routes!,
-      initialRoute: widget.initialRoute,
-      onGenerateRoute: widget.onGenerateRoute,
-      onGenerateInitialRoutes: widget.onGenerateInitialRoutes,
-      onUnknownRoute: widget.onUnknownRoute,
-      builder: _materialBuilder,
-      title: widget.title,
-      onGenerateTitle: widget.onGenerateTitle,
-      textStyle: _errorTextStyle,
-      color: materialColor,
-      locale: widget.locale,
-      localizationsDelegates: _localizationsDelegates,
-      localeResolutionCallback: widget.localeResolutionCallback,
-      localeListResolutionCallback: widget.localeListResolutionCallback,
-      supportedLocales: widget.supportedLocales,
-      showPerformanceOverlay: widget.showPerformanceOverlay,
-      checkerboardRasterCacheImages: widget.checkerboardRasterCacheImages,
-      checkerboardOffscreenLayers: widget.checkerboardOffscreenLayers,
-      showSemanticsDebugger: widget.showSemanticsDebugger,
-      debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
-      inspectorSelectButtonBuilder: _inspectorSelectButtonBuilder,
-      shortcuts: widget.shortcuts,
-      actions: widget.actions,
-      restorationScopeId: widget.restorationScopeId,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    Widget result = _buildWidgetApp(context);
-    result = Focus(
-      canRequestFocus: false,
-      onKey: (FocusNode node, RawKeyEvent event) {
-        if (event is! RawKeyDownEvent || event.logicalKey != LogicalKeyboardKey.escape) {
-          return KeyEventResult.ignored;
-        }
-        return Tooltip.dismissAllToolTips() ? KeyEventResult.handled : KeyEventResult.ignored;
-      },
-      child: result,
-    );
-    assert(() {
-      if (widget.debugShowMaterialGrid) {
-        result = GridPaper(
-          color: const Color(0xE0F9BBE0),
-          interval: 8.0,
-          subdivisions: 1,
-          child: result,
-        );
-      }
-      return true;
-    }());
-
-    return ScrollConfiguration(
-      behavior: widget.scrollBehavior ?? const BUIMaterialScrollBehavior(),
-      child: HeroControllerScope(
-        controller: _heroController,
-        child: result,
-      ),
+    return MaterialApp(
+      key: key,
+      navigatorKey: navigatorKey,
+      navigatorObservers: navigatorObservers!,
+      home: home,
+      routes: routes!,
+      initialRoute: initialRoute,
+      onGenerateRoute: onGenerateRoute,
+      onGenerateInitialRoutes: onGenerateInitialRoutes,
+      onUnknownRoute: onUnknownRoute,
+      builder: builder,
+      title: title,
+      onGenerateTitle: onGenerateTitle,
+      color: color ?? theme?.primaryColor ?? Colors.blue,
+      themeAnimationDuration: themeAnimationDuration,
+      themeAnimationCurve: themeAnimationCurve,
+      scrollBehavior: scrollBehavior,
+      scaffoldMessengerKey: scaffoldMessengerKey,
+      highContrastTheme: highContrastTheme,
+      highContrastDarkTheme: highContrastDarkTheme,
+      debugShowMaterialGrid: debugShowMaterialGrid,
+      theme: theme,
+      darkTheme: darkTheme,
+      themeMode: themeMode,
+      locale: locale,
+      localizationsDelegates: localizationsDelegates,
+      localeResolutionCallback: localeResolutionCallback,
+      localeListResolutionCallback: localeListResolutionCallback,
+      supportedLocales: supportedLocales,
+      showPerformanceOverlay: showPerformanceOverlay,
+      checkerboardRasterCacheImages: checkerboardRasterCacheImages,
+      checkerboardOffscreenLayers: checkerboardOffscreenLayers,
+      showSemanticsDebugger: showSemanticsDebugger,
+      debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+      shortcuts: shortcuts,
+      actions: actions,
+      restorationScopeId: restorationScopeId,
     );
   }
 }
