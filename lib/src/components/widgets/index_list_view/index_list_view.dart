@@ -2,7 +2,6 @@ import 'package:bui/bui.dart';
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-
 class IndexListView extends StatefulWidget {
   final int itemCount;
   final bool shrinkWrap;
@@ -45,8 +44,6 @@ class IndexListView extends StatefulWidget {
     this.physics,
   }) : super(key: key);
 
-
-
   static ChatIndexListView chat({
     Key? key,
     shrinkWrap = false,
@@ -67,33 +64,33 @@ class IndexListView extends StatefulWidget {
     VoidCallback? onPressedGoEndOfList,
     ValueSetter<int>? onChangeMinIndex,
     ValueSetter<int>? onChangeMaxIndex,
-  }) => ChatIndexListView(
-    itemCount: itemCount,
-    itemBuilder: itemBuilder,
-    controller: controller,
-    onChangeMaxIndex: onChangeMaxIndex,
-    semanticChildCount: semanticChildCount,
-    minCacheExtent: minCacheExtent,
-    initialScrollIndex: initialScrollIndex,
-    initialAlignment: initialAlignment,
-    addRepaintBoundaries: addRepaintBoundaries,
-    scrollDirection: scrollDirection,
-    padding: padding,
-    addSemanticIndexes: addSemanticIndexes,
-    reverse: reverse,
-    key: key,
-    physics: physics,
-    shrinkWrap: shrinkWrap,
-    addAutomaticKeepAlive: addAutomaticKeepAlive,
-    onChangeMinIndex: onChangeMinIndex,
-  );
+  }) =>
+      ChatIndexListView(
+        itemCount: itemCount,
+        itemBuilder: itemBuilder,
+        controller: controller,
+        onChangeMaxIndex: onChangeMaxIndex,
+        semanticChildCount: semanticChildCount,
+        minCacheExtent: minCacheExtent,
+        initialScrollIndex: initialScrollIndex,
+        initialAlignment: initialAlignment,
+        addRepaintBoundaries: addRepaintBoundaries,
+        scrollDirection: scrollDirection,
+        padding: padding,
+        addSemanticIndexes: addSemanticIndexes,
+        reverse: reverse,
+        key: key,
+        physics: physics,
+        shrinkWrap: shrinkWrap,
+        addAutomaticKeepAlive: addAutomaticKeepAlive,
+        onChangeMinIndex: onChangeMinIndex,
+      );
 
   @override
   State<IndexListView> createState() => _IndexListViewState();
 }
 
 class _IndexListViewState extends State<IndexListView> {
-
   late IndexListController _controller;
   int? min, max;
 
@@ -102,17 +99,16 @@ class _IndexListViewState extends State<IndexListView> {
     super.initState();
     _controller = widget.controller ?? IndexListController();
     _controller.itemPositionsListener.itemPositions.addListener(() {
-      if(min != _controller.minIndexOfChatListOnViewPort){
+      if (min != _controller.minIndexOfChatListOnViewPort) {
         widget.onChangeMinIndex?.call(_controller.minIndexOfChatListOnViewPort);
         min = _controller.minIndexOfChatListOnViewPort;
       }
-      if(max != _controller.maxIndexOfChatListOnViewPort){
+      if (max != _controller.maxIndexOfChatListOnViewPort) {
         widget.onChangeMaxIndex?.call(_controller.maxIndexOfChatListOnViewPort);
         max = _controller.maxIndexOfChatListOnViewPort;
       }
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -138,4 +134,3 @@ class _IndexListViewState extends State<IndexListView> {
     );
   }
 }
-

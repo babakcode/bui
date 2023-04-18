@@ -10,15 +10,17 @@ class ChatTextListTile extends StatelessWidget {
   final ChatSendStatusWidgets? chatSendStatusWidgets;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? textPadding;
-  final String text;
+  final String? text;
   final TextStyle? textStyle;
   final TextStyle? dateTimeTextStyle;
+  final Widget? textChild;
 
   const ChatTextListTile({
     Key? key,
-    required this.text,
+    this.text,
     this.isFromMe = true,
     this.senderName,
+    this.textChild,
     this.padding,
     this.textPadding,
     this.textStyle,
@@ -48,13 +50,13 @@ class ChatTextListTile extends StatelessWidget {
             Padding(
               padding: textPadding ??
                   const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
-              child: Text(
-                text,
-                style: textStyle ?? TextStyle(
-                  color: isFromMe
-                      ? Theme.of(context).colorScheme.onPrimary
-                      : Theme.of(context).colorScheme.primary
-                ),
+              child: textChild ?? Text(
+                text ?? "Put text property ...",
+                style: textStyle ??
+                    TextStyle(
+                        color: isFromMe
+                            ? Theme.of(context).colorScheme.onPrimary
+                            : Theme.of(context).colorScheme.primary),
               ),
             ),
             Padding(

@@ -680,9 +680,7 @@ class BUIMaterialApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    bool usesRouter =
-        routerDelegate != null || routerConfig != null;
+    bool usesRouter = routerDelegate != null || routerConfig != null;
     // The color property is always pulled from the light theme, even if dark
     // mode is activated. This was done to simplify the technical details
     // of switching themes and it was deemed acceptable because this color

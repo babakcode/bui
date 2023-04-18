@@ -49,7 +49,6 @@ class ChatIndexListView extends StatefulWidget {
 }
 
 class _IndexListViewState extends State<ChatIndexListView> {
-
   late IndexListController _controller;
   int? min, max;
 
@@ -58,17 +57,16 @@ class _IndexListViewState extends State<ChatIndexListView> {
     super.initState();
     _controller = widget.controller ?? IndexListController();
     _controller.itemPositionsListener.itemPositions.addListener(() {
-      if(min != _controller.minIndexOfChatListOnViewPort){
+      if (min != _controller.minIndexOfChatListOnViewPort) {
         widget.onChangeMinIndex?.call(_controller.minIndexOfChatListOnViewPort);
         min = _controller.minIndexOfChatListOnViewPort;
       }
-      if(max != _controller.maxIndexOfChatListOnViewPort){
+      if (max != _controller.maxIndexOfChatListOnViewPort) {
         widget.onChangeMaxIndex?.call(_controller.maxIndexOfChatListOnViewPort);
         max = _controller.maxIndexOfChatListOnViewPort;
       }
     });
   }
-
 
   @override
   Widget build(BuildContext context) {

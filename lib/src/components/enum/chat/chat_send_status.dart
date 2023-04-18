@@ -1,4 +1,4 @@
-enum ChatSendStatus{
+enum ChatSendStatus {
   sent,
   seen,
   sending,

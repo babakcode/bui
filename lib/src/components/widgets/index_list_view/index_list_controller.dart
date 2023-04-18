@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class IndexListController extends ChangeNotifier {
-
   IndexListController();
 
   ItemScrollController itemScrollController = ItemScrollController();
