@@ -1,6 +1,6 @@
 name: bui
 description: flutter custom theme and some widgets. Change flutter application UI without update version number ;) This package will be updated!
-version: 0.0.1-dev.5
+version: 0.0.1-dev.6
 homepage: "https://github.com/babakcode/bui"
 
 environment:
