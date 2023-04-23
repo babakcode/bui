@@ -12,6 +12,8 @@ class ChatTextListTile extends StatelessWidget {
   final EdgeInsetsGeometry? textPadding;
   final String? text;
   final TextStyle? textStyle;
+  final Color? chatSendStatusColor;
+  final double? chatSendStatusSize;
   final TextStyle? dateTimeTextStyle;
   final Widget? textChild;
 
@@ -25,6 +27,8 @@ class ChatTextListTile extends StatelessWidget {
     this.textPadding,
     this.textStyle,
     this.chatSendStatus,
+    this.chatSendStatusColor,
+    this.chatSendStatusSize,
     this.chatSendStatusWidgets,
     this.dateTimeText,
     this.dateTimeTextStyle,
@@ -38,9 +42,8 @@ class ChatTextListTile extends StatelessWidget {
       width: double.infinity,
       alignment: isFromMe ? Alignment.centerRight : Alignment.centerLeft,
       child: ConstrainedBox(
-        constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width * .8
-        ),
+        constraints:
+            BoxConstraints(maxWidth: MediaQuery.of(context).size.width * .8),
         child: Card(
           color: isFromMe
               ? Theme.of(context).colorScheme.primary
@@ -54,14 +57,15 @@ class ChatTextListTile extends StatelessWidget {
               Padding(
                 padding: textPadding ??
                     const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
-                child: textChild ?? Text(
-                  text ?? "Put text property ...",
-                  style: textStyle ??
-                      TextStyle(
-                          color: isFromMe
-                              ? Theme.of(context).colorScheme.onPrimary
-                              : Theme.of(context).colorScheme.primary),
-                ),
+                child: textChild ??
+                    Text(
+                      text ?? "Put text property ...",
+                      style: textStyle ??
+                          TextStyle(
+                              color: isFromMe
+                                  ? Theme.of(context).colorScheme.onPrimary
+                                  : Theme.of(context).colorScheme.primary),
+                    ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
@@ -88,18 +92,38 @@ class ChatTextListTile extends StatelessWidget {
                           switch (chatSendStatus!) {
                             case ChatSendStatus.sending:
                               return chatSendStatusWidgets?.sending ??
-                                  const Icon(Icons.access_time_rounded);
+                                  Icon(
+                                    Icons.access_time_rounded,
+                                    color: chatSendStatusColor,
+                                    size: chatSendStatusSize,
+                                  );
                             case ChatSendStatus.unsuccessful:
                               return chatSendStatusWidgets?.unsuccessful ??
-                                  const Icon(Icons.error_outline_rounded);
+                                  Icon(
+                                    Icons.error_outline_rounded,
+                                    color: chatSendStatusColor,
+                                    size: chatSendStatusSize,
+                                  );
                             case ChatSendStatus.seen:
                               return chatSendStatusWidgets?.seen ??
-                                  const Icon(Icons.done_all_rounded);
+                                  Icon(
+                                    Icons.done_all_rounded,
+                                    color: chatSendStatusColor,
+                                    size: chatSendStatusSize,
+                                  );
                             case ChatSendStatus.sent:
                               return chatSendStatusWidgets?.sent ??
-                                  const Icon(Icons.check_rounded);
+                                  Icon(
+                                    Icons.check_rounded,
+                                    color: chatSendStatusColor,
+                                    size: chatSendStatusSize,
+                                  );
                             default:
-                              return const Icon(Icons.check_rounded);
+                              return Icon(
+                                Icons.check_rounded,
+                                color: chatSendStatusColor,
+                                size: chatSendStatusSize,
+                              );
                           }
                         },
                       ),
