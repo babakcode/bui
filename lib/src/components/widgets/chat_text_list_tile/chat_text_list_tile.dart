@@ -55,7 +55,6 @@ class ChatTextListTile extends StatelessWidget {
             : Theme.of(context).colorScheme.primary);
 
     return Container(
-      padding: padding,
       // color: Colors.red,
       width: double.infinity,
       alignment: isFromMe ? Alignment.centerRight : Alignment.centerLeft,
@@ -66,84 +65,87 @@ class ChatTextListTile extends StatelessWidget {
         child: Card(
           color: bg,
           margin: margin,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment:
-                isFromMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-            children: [
-              if (senderName != null) senderName!,
-              Padding(
-                padding: textPadding ??
-                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
-                child: textChild ??
-                    Text(
-                      text ?? "Put text property ...",
-                      style: textStyle ?? TextStyle(color: fg),
-                    ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    if (dateTimeText != null)
+          child: Padding(
+            padding: padding ?? const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment:
+                  isFromMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+              children: [
+                if (senderName != null) senderName!,
+                Padding(
+                  padding: textPadding ??
+                      const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
+                  child: textChild ??
                       Text(
-                        dateTimeText!,
-                        textDirection: TextDirection.ltr,
-                        style: dateTimeTextStyle ??
-                            TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                                color: fg),
+                        text ?? "Put text property ...",
+                        style: textStyle ?? TextStyle(color: fg),
                       ),
-                    const SizedBox(
-                      width: 4,
-                    ),
-                    if (chatSendStatus != null)
-                      Builder(
-                        builder: (context) {
-                          switch (chatSendStatus!) {
-                            case ChatSendStatus.sending:
-                              return chatSendStatusWidgets?.sending ??
-                                  Icon(
-                                    Icons.access_time_rounded,
-                                    color: chatSendStatusColor ?? fg,
-                                    size: chatSendStatusSize,
-                                  );
-                            case ChatSendStatus.unsuccessful:
-                              return chatSendStatusWidgets?.unsuccessful ??
-                                  Icon(
-                                    Icons.error_outline_rounded,
-                                    color: chatSendStatusColor ?? fg,
-                                    size: chatSendStatusSize,
-                                  );
-                            case ChatSendStatus.seen:
-                              return chatSendStatusWidgets?.seen ??
-                                  Icon(
-                                    Icons.done_all_rounded,
-                                    color: chatSendStatusColor ?? fg,
-                                    size: chatSendStatusSize,
-                                  );
-                            case ChatSendStatus.sent:
-                              return chatSendStatusWidgets?.sent ??
-                                  Icon(
-                                    Icons.check_rounded,
-                                    color: chatSendStatusColor ?? fg,
-                                    size: chatSendStatusSize,
-                                  );
-                            default:
-                              return Icon(
-                                Icons.check_rounded,
-                                color: chatSendStatusColor ?? fg,
-                                size: chatSendStatusSize,
-                              );
-                          }
-                        },
-                      ),
-                  ],
                 ),
-              )
-            ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (dateTimeText != null)
+                        Text(
+                          dateTimeText!,
+                          textDirection: TextDirection.ltr,
+                          style: dateTimeTextStyle ??
+                              TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                  color: fg),
+                        ),
+                      const SizedBox(
+                        width: 4,
+                      ),
+                      if (chatSendStatus != null)
+                        Builder(
+                          builder: (context) {
+                            switch (chatSendStatus!) {
+                              case ChatSendStatus.sending:
+                                return chatSendStatusWidgets?.sending ??
+                                    Icon(
+                                      Icons.access_time_rounded,
+                                      color: chatSendStatusColor ?? fg,
+                                      size: chatSendStatusSize,
+                                    );
+                              case ChatSendStatus.unsuccessful:
+                                return chatSendStatusWidgets?.unsuccessful ??
+                                    Icon(
+                                      Icons.error_outline_rounded,
+                                      color: chatSendStatusColor ?? fg,
+                                      size: chatSendStatusSize,
+                                    );
+                              case ChatSendStatus.seen:
+                                return chatSendStatusWidgets?.seen ??
+                                    Icon(
+                                      Icons.done_all_rounded,
+                                      color: chatSendStatusColor ?? fg,
+                                      size: chatSendStatusSize,
+                                    );
+                              case ChatSendStatus.sent:
+                                return chatSendStatusWidgets?.sent ??
+                                    Icon(
+                                      Icons.check_rounded,
+                                      color: chatSendStatusColor ?? fg,
+                                      size: chatSendStatusSize,
+                                    );
+                              default:
+                                return Icon(
+                                  Icons.check_rounded,
+                                  color: chatSendStatusColor ?? fg,
+                                  size: chatSendStatusSize,
+                                );
+                            }
+                          },
+                        ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
