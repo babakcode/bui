@@ -17,3 +17,4 @@ export 'src/components/widgets/index_list_view/chat_index_list.dart';
 export 'src/components/widgets/index_list_view/index_list_controller.dart';
 
 export 'src/components/widgets/chat_text_list_tile/chat_text_list_tile.dart';
+export 'src/components/widgets/chat_text_list_tile/chat_file_list_tile.dart';
