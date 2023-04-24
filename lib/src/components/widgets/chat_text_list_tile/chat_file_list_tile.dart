@@ -113,6 +113,7 @@ class _ChatFileListTileState extends State<ChatFileListTile> {
                         if (widget.dateTimeText != null)
                           Text(
                             widget.dateTimeText!,
+                            textDirection: TextDirection.ltr,
                             style: widget.dateTimeTextStyle ??
                                 TextStyle(
                                     fontSize: 10,

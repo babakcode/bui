@@ -33,7 +33,7 @@ class ChatTextListTile extends StatelessWidget {
     this.textStyle,
     this.chatSendStatus,
     this.chatSendStatusColor,
-    this.chatSendStatusSize,
+    this.chatSendStatusSize = 12,
     this.backgroundColor,
     this.foregroundColor,
     this.chatSendStatusWidgets,
@@ -89,6 +89,7 @@ class ChatTextListTile extends StatelessWidget {
                     if (dateTimeText != null)
                       Text(
                         dateTimeText!,
+                        textDirection: TextDirection.ltr,
                         style: dateTimeTextStyle ??
                             TextStyle(
                                 fontSize: 10,
