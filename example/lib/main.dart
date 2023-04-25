@@ -47,10 +47,12 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: ListView.builder(
-        itemBuilder: (context, index) => ChatFileListTile(
-          testColor: Theme.of(context).colorScheme.primaryContainer,
+        itemBuilder: (context, index) => ChatVoiceListTile(
           isFromMe: index.isOdd,
           chatSendStatus: ChatSendStatus.sent,
+          dateTimeText: "20:00",
+          text: "awdmjkmawd",
+          onPressedPlayerButton: () {},
         ),
       ),
     );
