@@ -24,6 +24,7 @@ class ChatVoiceListTile extends StatelessWidget {
   final Color? playerButtonColor;
   final Widget? slider;
   final double? sliderValue;
+  final Color? sliderActiveColor;
   final ValueSetter<double>? sliderOnChange;
   final double? sliderMaxValue;
   final Color? backgroundColor;
@@ -55,6 +56,7 @@ class ChatVoiceListTile extends StatelessWidget {
     this.sliderValue,
     this.sliderMaxValue,
     this.sliderOnChange,
+    this.sliderActiveColor,
     this.dateTimeTextStyle,
     this.boxConstraints,
   }) : super(key: key);
@@ -119,6 +121,7 @@ class ChatVoiceListTile extends StatelessWidget {
                                   : sliderOnChange,
                               min: 0,
                               max: sliderMaxValue ?? 1,
+                              activeColor: sliderActiveColor ?? Theme.of(context).colorScheme.primaryContainer,
                               divisions: (sliderMaxValue ?? 1).toInt(),
                             ),
                         Padding(
