@@ -121,6 +121,7 @@ class ChatVoiceListTile extends StatelessWidget {
                                   : sliderOnChange,
                               min: 0,
                               max: sliderMaxValue ?? 1,
+                              inactiveColor: Colors.grey.shade600,
                               activeColor: sliderActiveColor ?? Theme.of(context).colorScheme.primaryContainer,
                               divisions: (sliderMaxValue ?? 1).toInt(),
                             ),
