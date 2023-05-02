@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bui/bui.dart';
 import 'package:flutter/material.dart';
 
@@ -40,21 +42,38 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  List<int> list = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: [
+          IconButton(onPressed: () => setState(() {
+            list.remove(list.last);
+          }), icon: Icon(Icons.close)),
+          IconButton(onPressed: () => setState(() {
+            list.insert(0, Random().nextInt(2000));
+          }), icon: Icon(Icons.add)),
+        ],
       ),
-      body: ListView.builder(
+      body: ChatIndexListView(
+        physics: ChatScrollPhysics(
+        ),
+        shrinkWrap: true,
+        reverse: true,
+        addSemanticIndexes: false,
+        itemCount: list.length,
         itemBuilder: (context, index) => ChatVoiceListTile(
-          isFromMe: index.isOdd,
+          isFromMe: false,
           chatSendStatus: ChatSendStatus.sent,
           dateTimeText: "20:00",
           sliderValue: 2,
           sliderMaxValue: 4,
           sliderOnChange: (d){},
-          text: "awdmjkmawd",
+          text: "index: $index = ${list[index]}",
           onPressedPlayerButton: () {},
         ),
       ),

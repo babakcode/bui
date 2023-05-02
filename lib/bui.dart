@@ -20,4 +20,6 @@ export 'src/components/widgets/chat_list_tiles/chat_text_list_tile.dart';
 export 'src/components/widgets/chat_list_tiles/chat_file_list_tile.dart';
 export 'src/components/widgets/chat_list_tiles/chat_voice_list_tile.dart';
 
-
+/// input_formatters
+export 'src/components/input_formatters/lowercase_input_formatter.dart';
+export 'src/components/input_formatters/uppercase_input_formatter.dart';
