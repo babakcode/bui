@@ -14,6 +14,7 @@ class ChatFileListTile extends StatelessWidget {
   final String? url;
   final EdgeInsetsGeometry? urlPadding;
   final String? text;
+  final String? mimeType;
   final TextStyle? textStyle;
   final Color? chatSendStatusColor;
   final double? chatSendStatusSize;
@@ -41,6 +42,7 @@ class ChatFileListTile extends StatelessWidget {
     this.chatSendStatus,
     this.chatSendStatusColor,
     this.downloadWidget,
+    this.mimeType,
     this.chatSendStatusSize = 12,
     this.chatSendStatusWidgets,
     this.dateTimeText,
@@ -115,6 +117,12 @@ class ChatFileListTile extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
+                          if (mimeType != null)
+                            Text(
+                              mimeType!,
+                              style: const TextStyle(
+                                  color: Colors.grey, fontSize: 10),
+                            ),
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 6, vertical: 2),
