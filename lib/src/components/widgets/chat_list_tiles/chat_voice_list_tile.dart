@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../model/chat/chat_send_status_widgets.dart';
 import '../../enum/chat/chat_send_status.dart';
 
@@ -106,90 +105,94 @@ class ChatVoiceListTile extends StatelessWidget {
                                 color: bg,
                               )),
                     ),
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: isFromMe
-                          ? CrossAxisAlignment.end
-                          : CrossAxisAlignment.start,
-                      children: [
-                        if (senderName != null) senderName!,
-                        slider ??
-                            Slider(
-                              value: sliderValue ?? 0,
-                              onChanged: sliderMaxValue == null
-                                  ? null
-                                  : sliderOnChange,
-                              min: 0,
-                              max: sliderMaxValue ?? 1,
-                              inactiveColor: Colors.grey.shade600,
-                              activeColor: sliderActiveColor ?? Theme.of(context).colorScheme.primaryContainer,
-                              divisions: (sliderMaxValue ?? 1).toInt(),
-                            ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 6, vertical: 2),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              if (dateTimeText != null)
-                                Text(
-                                  dateTimeText!,
-                                  textDirection: TextDirection.ltr,
-                                  style: dateTimeTextStyle ??
-                                      TextStyle(
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.bold,
-                                          color: fg),
-                                ),
-                              const SizedBox(
-                                width: 4,
+                    Flexible(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: isFromMe
+                            ? CrossAxisAlignment.end
+                            : CrossAxisAlignment.start,
+                        children: [
+                          if (senderName != null) senderName!,
+                          slider ??
+                              Slider(
+                                value: sliderValue ?? 0,
+                                onChanged: sliderMaxValue == null
+                                    ? null
+                                    : sliderOnChange,
+                                min: 0,
+                                max: sliderMaxValue ?? 1,
+                                inactiveColor: Colors.grey.shade600,
+                                activeColor: sliderActiveColor ?? Theme.of(context).colorScheme.primaryContainer,
+                                divisions: (sliderMaxValue ?? 1).toInt(),
                               ),
-                              if (chatSendStatus != null)
-                                Builder(
-                                  builder: (context) {
-                                    switch (chatSendStatus!) {
-                                      case ChatSendStatus.sending:
-                                        return chatSendStatusWidgets?.sending ??
-                                            Icon(
-                                              Icons.access_time_rounded,
-                                              color: chatSendStatusColor ?? fg,
-                                              size: chatSendStatusSize,
-                                            );
-                                      case ChatSendStatus.unsuccessful:
-                                        return chatSendStatusWidgets
-                                                ?.unsuccessful ??
-                                            Icon(
-                                              Icons.error_outline_rounded,
-                                              color: chatSendStatusColor ?? fg,
-                                              size: chatSendStatusSize,
-                                            );
-                                      case ChatSendStatus.seen:
-                                        return chatSendStatusWidgets?.seen ??
-                                            Icon(
-                                              Icons.done_all_rounded,
-                                              color: chatSendStatusColor ?? fg,
-                                              size: chatSendStatusSize,
-                                            );
-                                      case ChatSendStatus.sent:
-                                        return chatSendStatusWidgets?.sent ??
-                                            Icon(
-                                              Icons.check_rounded,
-                                              color: chatSendStatusColor ?? fg,
-                                              size: chatSendStatusSize,
-                                            );
-                                      default:
-                                        return Icon(
-                                          Icons.check_rounded,
-                                          color: chatSendStatusColor ?? fg,
-                                          size: chatSendStatusSize,
-                                        );
-                                    }
-                                  },
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 6, vertical: 2),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                if (dateTimeText != null)
+                                  Text(
+                                    dateTimeText!,
+                                    textDirection: TextDirection.ltr,
+                                    style: dateTimeTextStyle ??
+                                        TextStyle(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.bold,
+                                            color: fg),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                const SizedBox(
+                                  width: 4,
                                 ),
-                            ],
+                                if (chatSendStatus != null)
+                                  Builder(
+                                    builder: (context) {
+                                      switch (chatSendStatus!) {
+                                        case ChatSendStatus.sending:
+                                          return chatSendStatusWidgets?.sending ??
+                                              Icon(
+                                                Icons.access_time_rounded,
+                                                color: chatSendStatusColor ?? fg,
+                                                size: chatSendStatusSize,
+                                              );
+                                        case ChatSendStatus.unsuccessful:
+                                          return chatSendStatusWidgets
+                                                  ?.unsuccessful ??
+                                              Icon(
+                                                Icons.error_outline_rounded,
+                                                color: chatSendStatusColor ?? fg,
+                                                size: chatSendStatusSize,
+                                              );
+                                        case ChatSendStatus.seen:
+                                          return chatSendStatusWidgets?.seen ??
+                                              Icon(
+                                                Icons.done_all_rounded,
+                                                color: chatSendStatusColor ?? fg,
+                                                size: chatSendStatusSize,
+                                              );
+                                        case ChatSendStatus.sent:
+                                          return chatSendStatusWidgets?.sent ??
+                                              Icon(
+                                                Icons.check_rounded,
+                                                color: chatSendStatusColor ?? fg,
+                                                size: chatSendStatusSize,
+                                              );
+                                        default:
+                                          return Icon(
+                                            Icons.check_rounded,
+                                            color: chatSendStatusColor ?? fg,
+                                            size: chatSendStatusSize,
+                                          );
+                                      }
+                                    },
+                                  ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),

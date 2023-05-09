@@ -52,28 +52,28 @@ class _MyHomePageState extends State<MyHomePage> {
         actions: [
           IconButton(onPressed: () => setState(() {
             list.remove(list.last);
-          }), icon: Icon(Icons.close)),
+          }), icon: const Icon(Icons.close)),
           IconButton(onPressed: () => setState(() {
             list.insert(0, Random().nextInt(2000));
-          }), icon: Icon(Icons.add)),
+          }), icon: const Icon(Icons.add)),
         ],
       ),
       body: ChatIndexListView(
-        physics: ChatScrollPhysics(
-        ),
         shrinkWrap: true,
         reverse: true,
         addSemanticIndexes: false,
         itemCount: list.length,
-        itemBuilder: (context, index) => ChatVoiceListTile(
+        itemBuilder: (context, index) => index.isEven ? ChatVoiceListTile(
+          isFromMe: Random().nextBool(),
+          chatSendStatus: ChatSendStatus.sent,
+          dateTimeText: "20:00",
+          text: "indexadsadawdsadwadsadawdadadasdawdwadsadawdasdwdasadsadawdsadwadsadawdadadasdawdwadsadawdasdwdas $index = ${list[index]}",
+        )
+            : ChatFileListTile(
           isFromMe: false,
           chatSendStatus: ChatSendStatus.sent,
           dateTimeText: "20:00",
-          sliderValue: 2,
-          sliderMaxValue: 4,
-          sliderOnChange: (d){},
-          text: "index: $index = ${list[index]}",
-          onPressedPlayerButton: () {},
+          text: "indexadsadawdsadwadsadawdadadasdawdwadsadawdasdwdas: adsadawdsadwadsadawdadadasdawdwadsadawdasdwdasadsadawdsadwadsadawdadadasdawdwadsadawdasdwdas $index = ${list[index]}",
         ),
       ),
     );

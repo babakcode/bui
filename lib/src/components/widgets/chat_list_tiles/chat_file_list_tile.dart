@@ -2,7 +2,7 @@ import 'package:bui/bui.dart';
 import 'package:bui/src/model/chat/chat_send_status_widgets.dart';
 import 'package:flutter/material.dart';
 
-class ChatFileListTile extends StatefulWidget {
+class ChatFileListTile extends StatelessWidget {
   final bool isFromMe;
   final Widget? senderName;
   final String? dateTimeText;
@@ -17,10 +17,11 @@ class ChatFileListTile extends StatefulWidget {
   final double? chatSendStatusSize;
   final TextStyle? dateTimeTextStyle;
   final Widget? textChild;
+  final Widget? downloadWidget;
   final VoidCallback? clickDownload;
   final Color? backgroundColor;
+  final Color? attachmentColor;
   final Color? foregroundColor;
-  final Color? testColor;
   final BoxConstraints? boxConstraints;
 
   const ChatFileListTile({
@@ -35,137 +36,151 @@ class ChatFileListTile extends StatefulWidget {
     this.textStyle,
     this.chatSendStatus,
     this.chatSendStatusColor,
-    this.chatSendStatusSize,
+    this.downloadWidget,
+    this.chatSendStatusSize = 12,
     this.chatSendStatusWidgets,
     this.dateTimeText,
     this.dateTimeTextStyle,
     this.clickDownload,
     this.backgroundColor,
     this.foregroundColor,
-    this.testColor,
+    this.attachmentColor,
     this.boxConstraints,
   }) : super(key: key);
 
   @override
-  State<ChatFileListTile> createState() => _ChatFileListTileState();
-}
-
-class _ChatFileListTileState extends State<ChatFileListTile> {
-  @override
   Widget build(BuildContext context) {
-    Color bg = widget.backgroundColor ??
-        (widget.isFromMe
+    Color bg = backgroundColor ??
+        (isFromMe
             ? Theme.of(context).colorScheme.primary
             : Theme.of(context).colorScheme.onPrimary);
 
-    Color fg = widget.foregroundColor ??
-        (widget.isFromMe
+    Color fg = foregroundColor ??
+        (isFromMe
             ? Theme.of(context).colorScheme.onPrimary
             : Theme.of(context).colorScheme.primary);
 
     return Container(
-      padding: widget.padding,
+      padding: padding,
       // color: Colors.red,
       width: double.infinity,
-      alignment: widget.isFromMe ? Alignment.centerRight : Alignment.centerLeft,
+      alignment: isFromMe ? Alignment.centerRight : Alignment.centerLeft,
       child: ConstrainedBox(
-        constraints: widget.boxConstraints ??
-            BoxConstraints(
-                minWidth: MediaQuery.of(context).size.width > 360
-                    ? 300
-                    : MediaQuery.of(context).size.width * .6,
-                maxWidth: MediaQuery.of(context).size.width * .8),
+        constraints: boxConstraints ??
+            BoxConstraints(maxWidth: MediaQuery.of(context).size.width * .8),
         child: Card(
-          margin: widget.margin,
+          margin: margin,
           color: bg,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Card(
-                color: widget.testColor,
-                // shape: const CircleBorder(),
-                child: IconButton(
-                    onPressed: () {}, icon: const Icon(Icons.download_rounded)),
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: widget.isFromMe
-                    ? CrossAxisAlignment.end
-                    : CrossAxisAlignment.start,
-                children: [
-                  if (widget.senderName != null) widget.senderName!,
-                  Padding(
-                    padding: widget.textPadding ??
-                        const EdgeInsets.symmetric(
-                            horizontal: 6.0, vertical: 4.0),
-                    child: widget.textChild ??
-                        Text(
-                          widget.text ?? "Put text property ...",
-                          style: widget.textStyle ?? TextStyle(color: fg),
-                        ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        if (widget.dateTimeText != null)
-                          Text(
-                            widget.dateTimeText!,
-                            textDirection: TextDirection.ltr,
-                            style: widget.dateTimeTextStyle ??
-                                TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                    color: fg),
-                          ),
-                        const SizedBox(
-                          width: 4,
-                        ),
-                        if (widget.chatSendStatus != null)
-                          Builder(
-                            builder: (context) {
-                              switch (widget.chatSendStatus!) {
-                                case ChatSendStatus.sending:
-                                  return widget
-                                          .chatSendStatusWidgets?.sending ??
-                                      Icon(Icons.access_time_rounded,
-                                          color:
-                                              widget.chatSendStatusColor ?? fg,
-                                          size: widget.chatSendStatusSize);
-                                case ChatSendStatus.unsuccessful:
-                                  return widget.chatSendStatusWidgets
-                                          ?.unsuccessful ??
-                                      Icon(Icons.error_outline_rounded,
-                                          color:
-                                              widget.chatSendStatusColor ?? fg,
-                                          size: widget.chatSendStatusSize);
-                                case ChatSendStatus.seen:
-                                  return widget.chatSendStatusWidgets?.seen ??
-                                      Icon(Icons.done_all_rounded,
-                                          color:
-                                              widget.chatSendStatusColor ?? fg,
-                                          size: widget.chatSendStatusSize);
-                                case ChatSendStatus.sent:
-                                  return widget.chatSendStatusWidgets?.sent ??
-                                      Icon(Icons.check_rounded,
-                                          color:
-                                              widget.chatSendStatusColor ?? fg,
-                                          size: widget.chatSendStatusSize);
-                                default:
-                                  return Icon(Icons.check_rounded,
-                                      color: widget.chatSendStatusColor ?? fg,
-                                      size: widget.chatSendStatusSize);
-                              }
-                            },
-                          ),
-                      ],
+          child: Padding(
+            padding: padding ??
+                const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            child: Column(
+              crossAxisAlignment: isFromMe
+                  ? CrossAxisAlignment.end
+                  : CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Card(
+                      color: attachmentColor ?? Theme.of(context).colorScheme.primaryContainer,
+                      // shape: const CircleBorder(),
+                      child: downloadWidget ??
+                          IconButton(
+                              onPressed: clickDownload,
+                              icon: Icon(Icons.download_rounded,
+                                color: bg,)),
                     ),
-                  )
-                ],
-              ),
-            ],
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: isFromMe
+                            ? CrossAxisAlignment.end
+                            : CrossAxisAlignment.start,
+                        children: [
+                          if (senderName != null) senderName!,
+
+                          Padding(
+                            padding: textPadding ??
+                                const EdgeInsets.symmetric(
+                                    horizontal: 6.0, vertical: 4.0),
+                            child:textChild ??
+                                Text(
+                                  text ?? "Put text property ...",
+                                  style: textStyle ?? TextStyle(color: fg),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                const SizedBox(
+                                  width: 4,
+                                ),
+                                if (chatSendStatus != null)
+                                  Builder(
+                                    builder: (context) {
+                                      switch (chatSendStatus!) {
+                                        case ChatSendStatus.sending:
+                                          return chatSendStatusWidgets?.sending ??
+                                              Icon(
+                                                Icons.access_time_rounded,
+                                                color: chatSendStatusColor ?? fg,
+                                                size: chatSendStatusSize,
+                                              );
+                                        case ChatSendStatus.unsuccessful:
+                                          return chatSendStatusWidgets?.unsuccessful ??
+                                              Icon(
+                                                Icons.error_outline_rounded,
+                                                color: chatSendStatusColor ?? fg,
+                                                size: chatSendStatusSize,
+                                              );
+                                        case ChatSendStatus.seen:
+                                          return chatSendStatusWidgets?.seen ??
+                                              Icon(
+                                                Icons.done_all_rounded,
+                                                color: chatSendStatusColor ?? fg,
+                                                size: chatSendStatusSize,
+                                              );
+                                        case ChatSendStatus.sent:
+                                          return chatSendStatusWidgets?.sent ??
+                                              Icon(
+                                                Icons.check_rounded,
+                                                color: chatSendStatusColor ?? fg,
+                                                size: chatSendStatusSize,
+                                              );
+                                        default:
+                                          return Icon(
+                                            Icons.check_rounded,
+                                            color: chatSendStatusColor ?? fg,
+                                            size: chatSendStatusSize,
+                                          );
+                                      }
+                                    },
+                                  ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+
+                if (text != null || textChild != null) Padding(
+                  padding: textPadding ??
+                      const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
+                  child: textChild ??
+                      Text(
+                        text ?? "Put text property ...",
+                        style: textStyle ?? TextStyle(color: fg),
+                      ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
