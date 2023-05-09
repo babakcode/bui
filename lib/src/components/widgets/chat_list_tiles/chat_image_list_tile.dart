@@ -1,5 +1,6 @@
 import 'package:bui/bui.dart';
 import 'package:bui/src/model/chat/chat_send_status_widgets.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ChatImageListTile extends StatelessWidget {
@@ -108,7 +109,12 @@ class ChatImageListTile extends StatelessWidget {
                                   ? Image.network(url!)
                                   : AspectRatio(
                                       aspectRatio: aspectRatio!,
-                                      child: Image.network(url!),
+                                      child: CachedNetworkImage(
+                                        imageUrl: url!,
+                                        progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                            Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
+                                        fit: BoxFit.cover,
+                                      ),
                                     )),
                     ),
                   ),
