@@ -11,6 +11,8 @@ class ChatFileListTile extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
   final EdgeInsetsGeometry? textPadding;
+  final String? url;
+  final EdgeInsetsGeometry? urlPadding;
   final String? text;
   final TextStyle? textStyle;
   final Color? chatSendStatusColor;
@@ -32,7 +34,9 @@ class ChatFileListTile extends StatelessWidget {
     this.textChild,
     this.padding,
     this.margin,
+    this.url,
     this.textPadding,
+    this.urlPadding,
     this.textStyle,
     this.chatSendStatus,
     this.chatSendStatusColor,
@@ -100,12 +104,12 @@ class ChatFileListTile extends StatelessWidget {
                           if (senderName != null) senderName!,
 
                           Padding(
-                            padding: textPadding ??
+                            padding: urlPadding ??
                                 const EdgeInsets.symmetric(
                                     horizontal: 6.0, vertical: 4.0),
-                            child:textChild ??
+                            child:
                                 Text(
-                                  text ?? "Put text property ...",
+                                  url ?? "Put url property ...",
                                   style: textStyle ?? TextStyle(color: fg),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
