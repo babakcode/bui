@@ -64,7 +64,7 @@ class ChatImageListTile extends StatelessWidget {
             ? Theme.of(context).colorScheme.onPrimary
             : Theme.of(context).colorScheme.primary);
 
-    bool urlExist = url != null;
+    bool urlExist = url == null;
 
     return Container(
       // color: Colors.red,
