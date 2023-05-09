@@ -1,4 +1,4 @@
-class ModelInitChangeable{
+class ModelInitChangeable {
   String? project;
   String? account;
   String? accessToken;
@@ -6,8 +6,7 @@ class ModelInitChangeable{
 
   bool disableUpdates = false;
 
-
-  ModelInitChangeable.fromJson(Map<String, dynamic> json){
+  ModelInitChangeable.fromJson(Map<String, dynamic> json) {
     project = json['project'];
     account = json['account'];
     accessToken = json['accessToken'];

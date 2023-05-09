@@ -111,10 +111,14 @@ class ChatImageListTile extends StatelessWidget {
                                       aspectRatio: aspectRatio!,
                                       child: CachedNetworkImage(
                                         imageUrl: url!,
-                                        progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                            Center(child: CircularProgressIndicator(value: downloadProgress.progress,
-                                              color: Colors.grey,
-                                            )),
+                                        progressIndicatorBuilder: (context, url,
+                                                downloadProgress) =>
+                                            Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                          value: downloadProgress.progress,
+                                          color: Colors.grey,
+                                        )),
                                         fit: BoxFit.cover,
                                       ),
                                     )),

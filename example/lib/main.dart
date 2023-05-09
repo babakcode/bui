@@ -41,7 +41,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   List<int> list = [];
 
   @override
@@ -50,12 +49,16 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
         actions: [
-          IconButton(onPressed: () => setState(() {
-            list.remove(list.last);
-          }), icon: const Icon(Icons.close)),
-          IconButton(onPressed: () => setState(() {
-            list.insert(0, Random().nextInt(2000));
-          }), icon: const Icon(Icons.add)),
+          IconButton(
+              onPressed: () => setState(() {
+                    list.remove(list.last);
+                  }),
+              icon: const Icon(Icons.close)),
+          IconButton(
+              onPressed: () => setState(() {
+                    list.insert(0, Random().nextInt(2000));
+                  }),
+              icon: const Icon(Icons.add)),
         ],
       ),
       body: ChatIndexListView(
@@ -63,18 +66,21 @@ class _MyHomePageState extends State<MyHomePage> {
         reverse: true,
         addSemanticIndexes: false,
         itemCount: list.length,
-        itemBuilder: (context, index) => index.isEven ? ChatVoiceListTile(
-          isFromMe: Random().nextBool(),
-          chatSendStatus: ChatSendStatus.sent,
-          dateTimeText: "20:00",
-          text: "indexadsadawdsadwadsadawdadadasdawdwadsadawdasdwdasadsadawdsadwadsadawdadadasdawdwadsadawdasdwdas $index = ${list[index]}",
-        )
+        itemBuilder: (context, index) => index.isEven
+            ? ChatVoiceListTile(
+                isFromMe: Random().nextBool(),
+                chatSendStatus: ChatSendStatus.sent,
+                dateTimeText: "20:00",
+                text:
+                    "indexadsadawdsadwadsadawdadadasdawdwadsadawdasdwdasadsadawdsadwadsadawdadadasdawdwadsadawdasdwdas $index = ${list[index]}",
+              )
             : ChatFileListTile(
-          isFromMe: false,
-          chatSendStatus: ChatSendStatus.sent,
-          dateTimeText: "20:00",
-          text: "indexadsadawdsadwadsadawdadadasdawdwadsadawdasdwdas: adsadawdsadwadsadawdadadasdawdwadsadawdasdwdasadsadawdsadwadsadawdadadasdawdwadsadawdasdwdas $index = ${list[index]}",
-        ),
+                isFromMe: false,
+                chatSendStatus: ChatSendStatus.sent,
+                dateTimeText: "20:00",
+                text:
+                    "indexadsadawdsadwadsadawdadadasdawdwadsadawdasdwdas: adsadawdsadwadsadawdadadasdawdwadsadawdasdwdasadsadawdsadwadsadawdadadasdawdwadsadawdasdwdas $index = ${list[index]}",
+              ),
       ),
     );
   }

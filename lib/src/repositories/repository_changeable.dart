@@ -8,18 +8,17 @@ import '../model/changeable/model_changeable.dart';
 
 class RepositoryChangeable extends ChangeNotifier
     implements ChangeableImplements {
-
   ModelInitChangeable modelInitChangeable;
 
   RepositoryChangeable(this.modelInitChangeable)
-      : _requestManager = RequestManager(baseUrl: "https://api_ui.babakcode.com");
-
+      : _requestManager =
+            RequestManager(baseUrl: "https://api_ui.babakcode.com");
 
   final _changeableValues = <ModelChangeable>[];
 
-  ModelChangeable? getChangeableByTagName(String tag){
+  ModelChangeable? getChangeableByTagName(String tag) {
     int index = _changeableValues.indexWhere((element) => element.tag == tag);
-    if(index != -1){
+    if (index != -1) {
       return _changeableValues[index];
     }
     return null;
@@ -31,5 +30,4 @@ class RepositoryChangeable extends ChangeNotifier
   Future<Response> getAllChangeable() async {
     return _requestManager.get("path", body: {});
   }
-
 }

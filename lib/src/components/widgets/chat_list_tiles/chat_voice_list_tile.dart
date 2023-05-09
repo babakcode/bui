@@ -86,9 +86,8 @@ class ChatVoiceListTile extends StatelessWidget {
             padding: padding ??
                 const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
             child: Column(
-              crossAxisAlignment: isFromMe
-                  ? CrossAxisAlignment.end
-                  : CrossAxisAlignment.start,
+              crossAxisAlignment:
+                  isFromMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisSize: MainAxisSize.min,
@@ -96,12 +95,13 @@ class ChatVoiceListTile extends StatelessWidget {
                     Card(
                       color: playerButtonColor ??
                           Theme.of(context).colorScheme.primaryContainer,
-                      margin:
-                          const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 6, vertical: 2),
                       child: playerButton ??
                           IconButton(
                               onPressed: onPressedPlayerButton,
-                              icon: Icon(playerButtonIcon ?? Icons.play_arrow,
+                              icon: Icon(
+                                playerButtonIcon ?? Icons.play_arrow,
                                 color: bg,
                               )),
                     ),
@@ -122,7 +122,10 @@ class ChatVoiceListTile extends StatelessWidget {
                                 min: 0,
                                 max: sliderMaxValue ?? 1,
                                 inactiveColor: Colors.grey.shade600,
-                                activeColor: sliderActiveColor ?? Theme.of(context).colorScheme.primaryContainer,
+                                activeColor: sliderActiveColor ??
+                                    Theme.of(context)
+                                        .colorScheme
+                                        .primaryContainer,
                                 divisions: (sliderMaxValue ?? 1).toInt(),
                               ),
                           Padding(
@@ -151,10 +154,12 @@ class ChatVoiceListTile extends StatelessWidget {
                                     builder: (context) {
                                       switch (chatSendStatus!) {
                                         case ChatSendStatus.sending:
-                                          return chatSendStatusWidgets?.sending ??
+                                          return chatSendStatusWidgets
+                                                  ?.sending ??
                                               Icon(
                                                 Icons.access_time_rounded,
-                                                color: chatSendStatusColor ?? fg,
+                                                color:
+                                                    chatSendStatusColor ?? fg,
                                                 size: chatSendStatusSize,
                                               );
                                         case ChatSendStatus.unsuccessful:
@@ -162,21 +167,24 @@ class ChatVoiceListTile extends StatelessWidget {
                                                   ?.unsuccessful ??
                                               Icon(
                                                 Icons.error_outline_rounded,
-                                                color: chatSendStatusColor ?? fg,
+                                                color:
+                                                    chatSendStatusColor ?? fg,
                                                 size: chatSendStatusSize,
                                               );
                                         case ChatSendStatus.seen:
                                           return chatSendStatusWidgets?.seen ??
                                               Icon(
                                                 Icons.done_all_rounded,
-                                                color: chatSendStatusColor ?? fg,
+                                                color:
+                                                    chatSendStatusColor ?? fg,
                                                 size: chatSendStatusSize,
                                               );
                                         case ChatSendStatus.sent:
                                           return chatSendStatusWidgets?.sent ??
                                               Icon(
                                                 Icons.check_rounded,
-                                                color: chatSendStatusColor ?? fg,
+                                                color:
+                                                    chatSendStatusColor ?? fg,
                                                 size: chatSendStatusSize,
                                               );
                                         default:
@@ -196,16 +204,17 @@ class ChatVoiceListTile extends StatelessWidget {
                     ),
                   ],
                 ),
-
-                if (text != null || textChild != null) Padding(
-                  padding: textPadding ??
-                      const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
-                  child: textChild ??
-                      Text(
-                        text ?? "Put text property ...",
-                        style: textStyle ?? TextStyle(color: fg),
-                      ),
-                ),
+                if (text != null || textChild != null)
+                  Padding(
+                    padding: textPadding ??
+                        const EdgeInsets.symmetric(
+                            horizontal: 6.0, vertical: 4.0),
+                    child: textChild ??
+                        Text(
+                          text ?? "Put text property ...",
+                          style: textStyle ?? TextStyle(color: fg),
+                        ),
+                  ),
               ],
             ),
           ),

@@ -2,8 +2,7 @@ import 'package:dio/dio.dart';
 import '../model/request_response/response.dart' as bui;
 
 class RequestManager {
-
-  RequestManager({String? baseUrl, Map<String, String>? headers}){
+  RequestManager({String? baseUrl, Map<String, String>? headers}) {
     _dio.options.baseUrl = baseUrl ?? '';
     _dio.options.headers.addAll(headers ?? {});
   }

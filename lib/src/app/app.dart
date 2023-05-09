@@ -1,7 +1,6 @@
 import '../repositories/repository_changeable.dart';
 
 class BUI {
-
   // static final BUI instance = BUI._internal();
   static final BUI changeable = BUI._internal();
 
@@ -27,9 +26,7 @@ class BUI {
   init() {}
 
   late RepositoryChangeable repositoryChangeable;
-
 }
-
 
 /// 0. get init data like:
 ///   - username

@@ -60,13 +60,13 @@ class ChatTextListTile extends StatelessWidget {
       alignment: isFromMe ? Alignment.centerRight : Alignment.centerLeft,
       child: ConstrainedBox(
         constraints: boxConstraints ??
-            BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width * .8),
+            BoxConstraints(maxWidth: MediaQuery.of(context).size.width * .8),
         child: Card(
           color: bg,
           margin: margin,
           child: Padding(
-            padding: padding ?? const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            padding: padding ??
+                const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment:
@@ -75,7 +75,8 @@ class ChatTextListTile extends StatelessWidget {
                 if (senderName != null) senderName!,
                 Padding(
                   padding: textPadding ??
-                      const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
+                      const EdgeInsets.symmetric(
+                          horizontal: 6.0, vertical: 4.0),
                   child: textChild ??
                       Text(
                         text ?? "Put text property ...",
@@ -83,7 +84,8 @@ class ChatTextListTile extends StatelessWidget {
                       ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [

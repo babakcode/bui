@@ -79,21 +79,23 @@ class ChatFileListTile extends StatelessWidget {
             padding: padding ??
                 const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
             child: Column(
-              crossAxisAlignment: isFromMe
-                  ? CrossAxisAlignment.end
-                  : CrossAxisAlignment.start,
+              crossAxisAlignment:
+                  isFromMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Card(
-                      color: attachmentColor ?? Theme.of(context).colorScheme.primaryContainer,
+                      color: attachmentColor ??
+                          Theme.of(context).colorScheme.primaryContainer,
                       // shape: const CircleBorder(),
                       child: downloadWidget ??
                           IconButton(
                               onPressed: clickDownload,
-                              icon: Icon(Icons.download_rounded,
-                                color: bg,)),
+                              icon: Icon(
+                                Icons.download_rounded,
+                                color: bg,
+                              )),
                     ),
                     Flexible(
                       child: Column(
@@ -102,22 +104,20 @@ class ChatFileListTile extends StatelessWidget {
                             : CrossAxisAlignment.start,
                         children: [
                           if (senderName != null) senderName!,
-
                           Padding(
                             padding: urlPadding ??
                                 const EdgeInsets.symmetric(
                                     horizontal: 6.0, vertical: 4.0),
-                            child:
-                                Text(
-                                  url ?? "Put url property ...",
-                                  style: textStyle ?? TextStyle(color: fg),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                            child: Text(
+                              url ?? "Put url property ...",
+                              style: textStyle ?? TextStyle(color: fg),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                           Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 6, vertical: 2),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -129,31 +129,37 @@ class ChatFileListTile extends StatelessWidget {
                                     builder: (context) {
                                       switch (chatSendStatus!) {
                                         case ChatSendStatus.sending:
-                                          return chatSendStatusWidgets?.sending ??
+                                          return chatSendStatusWidgets
+                                                  ?.sending ??
                                               Icon(
                                                 Icons.access_time_rounded,
-                                                color: chatSendStatusColor ?? fg,
+                                                color:
+                                                    chatSendStatusColor ?? fg,
                                                 size: chatSendStatusSize,
                                               );
                                         case ChatSendStatus.unsuccessful:
-                                          return chatSendStatusWidgets?.unsuccessful ??
+                                          return chatSendStatusWidgets
+                                                  ?.unsuccessful ??
                                               Icon(
                                                 Icons.error_outline_rounded,
-                                                color: chatSendStatusColor ?? fg,
+                                                color:
+                                                    chatSendStatusColor ?? fg,
                                                 size: chatSendStatusSize,
                                               );
                                         case ChatSendStatus.seen:
                                           return chatSendStatusWidgets?.seen ??
                                               Icon(
                                                 Icons.done_all_rounded,
-                                                color: chatSendStatusColor ?? fg,
+                                                color:
+                                                    chatSendStatusColor ?? fg,
                                                 size: chatSendStatusSize,
                                               );
                                         case ChatSendStatus.sent:
                                           return chatSendStatusWidgets?.sent ??
                                               Icon(
                                                 Icons.check_rounded,
-                                                color: chatSendStatusColor ?? fg,
+                                                color:
+                                                    chatSendStatusColor ?? fg,
                                                 size: chatSendStatusSize,
                                               );
                                         default:
@@ -173,16 +179,17 @@ class ChatFileListTile extends StatelessWidget {
                     ),
                   ],
                 ),
-
-                if (text != null || textChild != null) Padding(
-                  padding: textPadding ??
-                      const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
-                  child: textChild ??
-                      Text(
-                        text ?? "Put text property ...",
-                        style: textStyle ?? TextStyle(color: fg),
-                      ),
-                ),
+                if (text != null || textChild != null)
+                  Padding(
+                    padding: textPadding ??
+                        const EdgeInsets.symmetric(
+                            horizontal: 6.0, vertical: 4.0),
+                    child: textChild ??
+                        Text(
+                          text ?? "Put text property ...",
+                          style: textStyle ?? TextStyle(color: fg),
+                        ),
+                  ),
               ],
             ),
           ),
