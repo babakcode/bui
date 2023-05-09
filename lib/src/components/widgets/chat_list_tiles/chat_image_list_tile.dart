@@ -106,13 +106,15 @@ class ChatImageListTile extends StatelessWidget {
                                   child: Text(
                                       "add the url property or the child property!"))
                               : aspectRatio == null
-                                  ? Image.network(url!)
+                                  ? CachedNetworkImage(imageUrl: url!)
                                   : AspectRatio(
                                       aspectRatio: aspectRatio!,
                                       child: CachedNetworkImage(
                                         imageUrl: url!,
                                         progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                            Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
+                                            Center(child: CircularProgressIndicator(value: downloadProgress.progress,
+                                              color: Colors.grey,
+                                            )),
                                         fit: BoxFit.cover,
                                       ),
                                     )),
