@@ -24,3 +24,6 @@ export 'src/components/widgets/chat_list_tiles/chat_image_list_tile.dart';
 /// input_formatters
 export 'src/components/input_formatters/lowercase_input_formatter.dart';
 export 'src/components/input_formatters/uppercase_input_formatter.dart';
+
+// extensions
+export 'src/components/extensions/list/first_where_if_exist_extension.dart';
