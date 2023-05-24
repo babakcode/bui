@@ -27,3 +27,4 @@ export 'src/components/input_formatters/uppercase_input_formatter.dart';
 
 // extensions
 export 'src/components/extensions/list/first_where_if_exist_extension.dart';
+export 'src/components/extensions/text_field/text_field_extensions.dart';
