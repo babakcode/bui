@@ -7,5 +7,5 @@ enum PrintPrettyColors {
   magenta,
   cyan,
   white,
-  reset,
+  reset;
 }
