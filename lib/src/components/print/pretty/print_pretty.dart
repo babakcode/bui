@@ -36,7 +36,8 @@ class PrintPretty {
           var encoder = const JsonEncoder.withIndent("  ");
           List linesMessages = encoder.convert(obj).split('\n');
           for (final element in linesMessages) {
-            print("${printPrettyColor?.color ?? ""}$element${printPrettyColor?.reset ?? ""}",);
+            log("${printPrettyColor?.color ?? ""}$element${printPrettyColor?.reset ?? ""}",
+                error: error, name: name ?? "Pretty");
           }
           return;
         }
