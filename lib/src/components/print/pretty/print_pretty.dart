@@ -6,7 +6,7 @@ import 'package:bui/src/components/extensions/print_pretty/print_pretty_colors_e
 export '../../enum/print/print_pretty_colors.dart';
 
 PrintPretty printPretty(
-  String message, {
+  dynamic message, {
   String? name,
   PrintPrettyColors? printPrettyColor,
   Object? error,
@@ -24,16 +24,15 @@ class PrintPretty {
   Object? error;
 
   PrintPretty(
-    Object message, {
+    dynamic message, {
     this.name,
     this.printPrettyColor,
     this.error,
   }) {
-
-    try{
-      if(message is String){
+    try {
+      if (message is String) {
         final obj = jsonDecode(message);
-        if(obj is Map || obj is List){
+        if (obj is Map || obj is List) {
           var encoder = const JsonEncoder.withIndent("  ");
           List linesMessages = encoder.convert(obj).split('\n');
           for (var element in linesMessages) {
@@ -43,7 +42,7 @@ class PrintPretty {
           return;
         }
       }
-    }catch(e){
+    } catch (e) {
       log("${printPrettyColor?.color ?? ""}$message${printPrettyColor?.reset ?? ""}",
           error: error, name: name ?? "Pretty");
       return;
