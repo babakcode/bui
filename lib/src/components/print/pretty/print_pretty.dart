@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:bui/src/components/enum/print/print_pretty_colors.dart';
 import 'package:bui/src/components/extensions/print_pretty/print_pretty_colors_extension.dart';
 
-export '/src/components/print/pretty/print_pretty_color_string.dart';
+export '../../enum/print/print_pretty_colors.dart';
 
 PrintPretty printPretty(
   String message, {
