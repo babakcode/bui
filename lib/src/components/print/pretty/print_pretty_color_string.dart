@@ -1,5 +1,5 @@
 
-abstract class PrintPrettyColorsString{
+sealed class PrintPrettyColorsString{
   static String get green => "\u001B[32m";
   static String get blink => "\u001B[5m";
   static String get cyan => "\u001B[36m";
