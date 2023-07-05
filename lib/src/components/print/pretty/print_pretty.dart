@@ -35,9 +35,8 @@ class PrintPretty {
         if (obj is Map || obj is List) {
           var encoder = const JsonEncoder.withIndent("  ");
           List linesMessages = encoder.convert(obj).split('\n');
-          for (var element in linesMessages) {
-            log("${printPrettyColor?.color ?? ""}$element${printPrettyColor?.reset ?? ""}",
-                error: error, name: name ?? "Pretty");
+          for (final element in linesMessages) {
+            print("${printPrettyColor?.color ?? ""}$element${printPrettyColor?.reset ?? ""}",);
           }
           return;
         }
