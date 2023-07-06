@@ -8,16 +8,18 @@ void printPretty(
   String message, {
   String? name,
   PrintPrettyColors? printPrettyColor,
-  dynamic json,
+  dynamic json, Object? error,
 }) {
   try {
     if (json is Map || json is List) {
-      return _print(json, name, message, printPrettyColor);
+      return _print(json, name, message, printPrettyColor, error);
     } else if (json is String) {
       final obj = jsonDecode(json);
       if (obj is Map || obj is List) {
-        return _print(obj, name, message, printPrettyColor);
+        return _print(obj, name, message, printPrettyColor, error);
       }
+    }else{
+      return _print(null, name, message, printPrettyColor, error);
     }
   } catch (e) {
     return;
@@ -29,16 +31,24 @@ void _print(
   String? name,
   String? message,
   PrintPrettyColors? printPrettyColor,
+  Object? error,
 ) {
   if (kDebugMode) {
-    var encoder = const JsonEncoder.withIndent("  ");
-    List linesMessages = encoder.convert(obj).split('\n');
-
     print("${name == null ? "" : "[$name]"} $message");
-    for (final element in linesMessages) {
-      print("${printPrettyColor?.color ?? ""}"
-          "$element${printPrettyColor?.resetColor ?? ""}");
+
+    if(obj != null){
+      var encoder = const JsonEncoder.withIndent("  ");
+      List linesMessages = encoder.convert(obj).split('\n');
+
+      for (final element in linesMessages) {
+        print("${printPrettyColor?.color ?? ""}"
+            "$element${printPrettyColor?.resetColor ?? ""}");
+      }
     }
+
+    printPrettyColor ??= PrintPrettyColors.red;
+
+    print("${printPrettyColor.error}$error${printPrettyColor.resetColor}");
   }
 }
 
