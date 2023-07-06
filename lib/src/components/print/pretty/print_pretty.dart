@@ -46,9 +46,11 @@ void _print(
       }
     }
 
-    printPrettyColor ??= PrintPrettyColors.red;
+    if(error != null){
+      printPrettyColor ??= PrintPrettyColors.red;
 
-    print("${printPrettyColor.error}$error${printPrettyColor.resetColor}");
+      print("${printPrettyColor.error}$error${printPrettyColor.resetColor}");
+    }
   }
 }
 
