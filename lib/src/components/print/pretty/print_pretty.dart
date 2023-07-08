@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 export '../../enum/print/print_pretty_colors.dart';
 
 void printPretty(
-  String message, {
+  Object message, {
   String? name,
   PrintPrettyColors? printPrettyColor,
   dynamic json, Object? error,
@@ -29,7 +29,7 @@ void printPretty(
 void _print(
   dynamic obj,
   String? name,
-  String? message,
+  Object? message,
   PrintPrettyColors? printPrettyColor,
   Object? error,
 ) {
