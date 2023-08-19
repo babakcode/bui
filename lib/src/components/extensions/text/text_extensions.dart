@@ -7,4 +7,11 @@ extension TextExtensions on Text {
         ? TextDirection.ltr
         : TextDirection.rtl;
   }
+
+  TextAlign get detectAlign {
+    return RegExp(r'^[a-zA-Z0-9?><;,{}[\]\-_+=!@#$%^&*|]')
+        .hasMatch(data ?? "")
+        ? TextAlign.left
+        : TextAlign.right;
+  }
 }
